@@ -1,0 +1,97 @@
+# SpaceBook
+# by bkm016
+
+ # 语言文件
+Language: zh_CN
+
+# 插件设置
+Settings:  
+  # 日期格式
+  dateformat: 'yyyy年MM月dd日 HH:mm:ss'
+
+  # 时空之书在 TabooLib 物品库中的名称
+  bookitem: 时空之书
+  
+  # 时空碎片在 TabooLib 物品库中的名称
+  beplyitem: 时空碎片
+  
+  # 回复文本颜色
+  replycolor: '§7§o'
+
+  # 每行最大字符数
+  lengthline: 15
+  
+  # 最大行数
+  limitline: 10
+
+  # 时空之书的有效范围
+  # 在这个范围内不允许出现两本时空之书
+  effectiveredius: 25
+  
+  # 创建设置
+  createsection:
+    # 标题持续时间（单位：秒）
+    titlestay: 10
+    # 音效
+    sound: 'ENTITY_ENDERDRAGON_DEATH-1-1'
+  
+  # 时空之书的全息展示信息
+  hologram:
+    icon: 'BOOK_AND_QUILL'
+    text:
+    - '&6< &e时空之书 &6>'
+    - '&f点击查看'
+    
+  # 创建按钮（使用 TabooLib 物品规则）
+  createitem:
+    material: BOOK_AND_QUILL
+    name: '&6确认创建'
+    lore:
+    - ''
+    - '&e在当前位置创建时空之书'
+    - '&e创建后无法撤销'
+    
+  # 翻页按钮（使用 TabooLib 物品规则）
+  nextpage:
+    material: ARROW
+    name: '&f下一页'
+    
+  # 翻页按钮（使用 TabooLib 物品规则）
+  backpage:
+    material: ARROW
+    name: '&f上一页'
+    
+  # 空白物品（使用 TabooLib 物品规则）
+  emptyitem:
+    material: WOOL
+    data: 14
+    name: '&4空'
+    lore:
+    - ''
+    - '&c写点什么?'
+  
+  # 信息按钮（使用 TabooLib 物品规则）
+  infoitem:
+    material: BOOK_AND_QUILL
+    name: '&f时空之书'
+    lore:
+    - ''
+    - '&f&m                                 '
+    - '&6 创建点: &e$date'
+    - '&6 创建者: &e$ownder'
+    - '&f&m                                 '
+    - ''
+    - '&8点击消耗 "&f时空碎片&8" 写点什么?'
+    enchants:
+      1: 1
+    flags:
+    - 'HIDE_ENCHANTS'
+    
+  # 留言物品（使用 TabooLib 物品规则）
+  messageitem:
+    material: PAPER
+    name: '&f$ownder'
+    lore:
+    - '&f[&8$date&f]'
+    - ''
+    - '&f&m                        '

@@ -1,0 +1,8 @@
+name: SpaceBook
+main: me.skymc.spacebook.SpaceBook
+version: {$VERSION}
+
+commands:
+  spacebook:
+    aliases: []
+    permission: spacebook.admin
