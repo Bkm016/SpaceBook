@@ -230,11 +230,11 @@ public class SpaceBookAPI {
 	public static void openInventory(Player player, String bookID, int page) {
 		// 如果正在打开中
 		if (player.hasMetadata("spacebook-open")) {
-			SpaceBook.getLanguage().send(player, "OPEN-WAIT");
+			SpaceBook.getLanguage().get("OPEN-WAIT").send(player);
 			return;
 		}
 		else {
-			SpaceBook.getLanguage().send(player, "OPEN-PRE");
+			SpaceBook.getLanguage().get("OPEN-PRE").send(player);
 			player.setMetadata("spacebook-open", new FixedMetadataValue(SpaceBook.getInst(), true));
 		}
 		
@@ -253,7 +253,7 @@ public class SpaceBookAPI {
 				
 				// 创建背包
 				SpaceBookHolder holder = new SpaceBookHolder(bookID, page);
-				Inventory inventory = Bukkit.createInventory(holder, 54, SpaceBook.getLanguage().get("MENU-TITLE"));
+				Inventory inventory = Bukkit.createInventory(holder, 54, SpaceBook.getLanguage().get("MENU-TITLE").asString());
 				
 				// 信息按钮
 				ItemStack info = ItemUtils.loadItem(SpaceBook.getInst().getConfig(), "Settings.infoitem", null); {
@@ -357,7 +357,7 @@ public class SpaceBookAPI {
 		
 		// 检查玩家是否有时空碎片
 		if (!InventoryUtil.hasItem(player, getReplyItem(), 1, true)) {
-			SpaceBook.getLanguage().send(player, "REPLY-EMPTY");
+			SpaceBook.getLanguage().get("REPLY-EMPTY").send(player);
 			return;
 		}
 		else {
@@ -367,12 +367,12 @@ public class SpaceBookAPI {
 				field.setAccessible(true);
 				HashMap<String, LinkedList<Catcher>> map = (HashMap<String, LinkedList<Catcher>>) field.get(new ChatCatcher());
 				if (map.containsKey(player.getName()) && map.get(player.getName()).size() > 0) {
-					SpaceBook.getLanguage().send(player, "REPLY-CATCHER-ERROR");
+					SpaceBook.getLanguage().get("REPLY-CATCHER-ERROR").send(player);
 					return;
 				}
 			}
 			catch (Exception e) {
-				// TODO: handle exception
+				// TODO: handle exceptions
 				e.printStackTrace();
 			}
 			
@@ -388,29 +388,29 @@ public class SpaceBookAPI {
 					player.getInventory().addItem(getReplyItem());
 					// 退出引导
 					PlayerUtils.clearScreen(player, 30);
-					SpaceBook.getLanguage().send(player, "REPLY-QUIT");
+					SpaceBook.getLanguage().get("REPLY-QUIT").send(player);
 				}
 				
 				@Override
 				public Catcher before() {
 					JSONFormatter json = new JSONFormatter();
 					// 分界线
-					json.append(SpaceBook.getLanguage().get("REPLY-HEAD"));
+					json.append(SpaceBook.getLanguage().get("REPLY-HEAD").asString());
 					json.newLine();
-					json.append(SpaceBook.getLanguage().get("REPLY-TITLE"));
+					json.append(SpaceBook.getLanguage().get("REPLY-TITLE").asString());
 					json.newLine();
 					
 					// 循环信息
 					for (int i = 0 ; i < message.size() && i < SpaceBook.getInst().getConfig().getInt("Settings.limitline") ; i++) {
 						// 编辑
 						json.appendHoverClick(
-								SpaceBook.getLanguage().get("REPLY-BUTTON-EDIT"), 
-								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-EDIT-TEXT")), 
+								SpaceBook.getLanguage().get("REPLY-BUTTON-EDIT").asString(), 
+								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-EDIT-TEXT").asString()), 
 								new SuggestCommandEvent("edit " + i + " " + message.get(i)));
 						// 删除
 						json.appendHoverClick(
-								SpaceBook.getLanguage().get("REPLY-BUTTON-DELETE"), 
-								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-DELETE-TEXT")), 
+								SpaceBook.getLanguage().get("REPLY-BUTTON-DELETE").asString(), 
+								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-DELETE-TEXT").asString()), 
 								new SuggestCommandEvent("delete " + i));
 						// 文本
 						json.append(" §f| " + SpaceBook.getInst().getConfig().getString("Settings.replycolor") + message.get(i).replace("&", "§"));
@@ -418,32 +418,32 @@ public class SpaceBookAPI {
 					}
 					
 					//分界线
-					json.append(SpaceBook.getLanguage().get("REPLY-TITLE"));
+					json.append(SpaceBook.getLanguage().get("REPLY-TITLE").asString());
 					json.newLine();
 					
 					// 完成
 					json.appendHoverClick(
-							SpaceBook.getLanguage().get("REPLY-BUTTON-SUCCESS"), 
-							new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-SUCCESS-TEXT")), 
+							SpaceBook.getLanguage().get("REPLY-BUTTON-SUCCESS").asString(), 
+							new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-SUCCESS-TEXT").asString()), 
 							new SuggestCommandEvent("success"));
 					// 撤销
 					json.appendHoverClick(
-							SpaceBook.getLanguage().get("REPLY-BUTTON-UNDO"), 
-							new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-UNDO-TEXT")), 
+							SpaceBook.getLanguage().get("REPLY-BUTTON-UNDO").asString(), 
+							new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-UNDO-TEXT").asString()), 
 							new SuggestCommandEvent("quit()"));
 					
 					// 下一行
 					if (message.size() < SpaceBook.getInst().getConfig().getInt("Settings.limitline")) {
 						json.append(" §f| ");
 						json.appendHoverClick(
-								SpaceBook.getLanguage().get("REPLY-BUTTON-ADDLINE"), 
-								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-ADDLINE-TEXT")), 
+								SpaceBook.getLanguage().get("REPLY-BUTTON-ADDLINE").asString(), 
+								new ShowTextEvent(SpaceBook.getLanguage().get("REPLY-BUTTON-ADDLINE-TEXT").asString()), 
 								new SuggestCommandEvent("addline 内容"));
 					}
 					
 					//分界线
 					json.newLine();
-					json.append(SpaceBook.getLanguage().get("REPLY-TITLE"));
+					json.append(SpaceBook.getLanguage().get("REPLY-TITLE").asString());
 					
 					// 发送
 					PlayerUtils.clearScreen(player, 30);
@@ -483,7 +483,7 @@ public class SpaceBookAPI {
 							player.getInventory().addItem(getReplyItem());
 							// 退出引导
 							PlayerUtils.clearScreen(player, 30);
-							SpaceBook.getLanguage().send(player, "REPLY-NULL");
+							SpaceBook.getLanguage().get("REPLY-NULL").send(player);
 						}
 						else {
 							// 添加文本
@@ -493,7 +493,7 @@ public class SpaceBookAPI {
 							
 							// 提示信息
 							PlayerUtils.clearScreen(player, 30);
-							SpaceBook.getLanguage().send(player, "REPLY-SUCCESS");
+							SpaceBook.getLanguage().get("REPLY-SUCCESS").send(player);
 						}
 						return false;
 					}

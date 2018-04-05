@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -19,7 +18,7 @@ import me.skymc.spacebook.inventory.SpaceBookHolder;
 import me.skymc.spacebook.listener.ListenerInventory;
 import me.skymc.spacebook.listener.ListenerPlayer;
 import me.skymc.taboolib.playerdata.DataUtils;
-import me.skymc.taboolib.string.Language;
+import me.skymc.taboolib.string.language2.Language2;
 
 /**
  * 插件主类
@@ -33,7 +32,7 @@ public class SpaceBook extends JavaPlugin {
 	private static SpaceBook inst;
 	
 	@Getter
-	private static Language language;
+	private static Language2 language;
 	
 	@Getter
 	private static FileConfiguration spaceBookData;
@@ -50,7 +49,7 @@ public class SpaceBook extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// 载入语言文件
-		language = new Language(getConfig().getString("Language"), this);
+		language = new Language2(this);
 		// 载入数据文件
 		spaceBookData = DataUtils.addPluginData("data", this);
 		

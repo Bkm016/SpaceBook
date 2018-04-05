@@ -1,13 +1,9 @@
 package me.skymc.spacebook.listener;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
 
 import me.skymc.spacebook.SpaceBook;
 import me.skymc.spacebook.api.SpaceBookAPI;
@@ -15,8 +11,6 @@ import me.skymc.spacebook.inventory.SpaceBookCreateHolder;
 import me.skymc.spacebook.inventory.SpaceBookDeleteHolder;
 import me.skymc.spacebook.inventory.SpaceBookHolder;
 import me.skymc.spacebook.utils.PlayerUtils;
-import me.skymc.taboolib.display.TitleUtils;
-import me.skymc.taboolib.sound.SoundPack;
 
 /**
  * 背包监听
@@ -40,7 +34,7 @@ public class ListenerInventory implements Listener {
 			
 			// 检查附近是否有其他时空之书
 			if (SpaceBookAPI.isBookNear(e.getWhoClicked().getLocation())) {
-				SpaceBook.getLanguage().send(e.getWhoClicked(), "BOOK-NEAR");
+				SpaceBook.getLanguage().get("BOOK-NEAR").send(e.getWhoClicked());
 				return;
 			}
 			
@@ -54,26 +48,10 @@ public class ListenerInventory implements Listener {
 			
 			// 关闭背包
 			e.getWhoClicked().closeInventory();
-			// 创建时空之书
+			// 创建配置
 			SpaceBookAPI.createBook(e.getWhoClicked().getLocation().add(0, 2, 0), e.getWhoClicked().getName());
-			
-			// 创建音效
-			SoundPack sound = new SoundPack(SpaceBook.getInst().getConfig().getString("Settings.createsection.sound"));
 			// 全服提示
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				// 播放音效
-				sound.play(player);
-				// 播放标题
-				TitleUtils.sendTitle(player, 
-						SpaceBook.getLanguage().get("CREATE-MESSAGE-TITLE").replace("$player", e.getWhoClicked().getName()), 
-						10, 
-						SpaceBook.getInst().getConfig().getInt("Settings.createsection.titlestay") * 20, 
-						10,
-						SpaceBook.getLanguage().get("CREATE-MESSAGE-SUBTITLE").replace("$player", e.getWhoClicked().getName()), 
-						10, 
-						SpaceBook.getInst().getConfig().getInt("Settings.createsection.titlestay") * 20, 
-						10);
-			}
+			SpaceBook.getLanguage().get("CREATE-MESSAGE").addPlaceholder("$player", e.getWhoClicked().getName()).broadcast();
 		}
 		else if (e.getInventory().getHolder() instanceof SpaceBookDeleteHolder) {
 			e.setCancelled(true);
@@ -85,7 +63,7 @@ public class ListenerInventory implements Listener {
 				// 关闭背包
 				e.getWhoClicked().closeInventory();
 				// 提示信息
-				SpaceBook.getLanguage().send(e.getWhoClicked(), "BOOK-DELETE");
+				SpaceBook.getLanguage().get("BOOK-DELETE").send(e.getWhoClicked());
 				// 删除数据
 				SpaceBookAPI.deleteBook(holder.getBookID());
 			}
@@ -139,7 +117,7 @@ public class ListenerInventory implements Listener {
 				// 删除回复
 				SpaceBook.getSpaceBookData().set(holder.getBookID() + ".Reply." + holder.getReplyData().get(e.getRawSlot()), null);
 				// 提示信息
-				SpaceBook.getLanguage().send(e.getWhoClicked(), "MENU-DELETE");
+				SpaceBook.getLanguage().get("MENU-DELETE").send(e.getWhoClicked());;
 				// 重新打开
 				SpaceBookAPI.openInventory((Player) e.getWhoClicked(), holder.getBookID(), holder.getPage());
 			}

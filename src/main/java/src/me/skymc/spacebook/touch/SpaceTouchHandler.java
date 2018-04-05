@@ -1,17 +1,12 @@
 package me.skymc.spacebook.touch;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import com.gmail.filoghost.holograms.api.Hologram;
 import com.gmail.filoghost.holograms.api.TouchHandler;
 
 import lombok.Getter;
-import me.skymc.spacebook.SpaceBook;
 import me.skymc.spacebook.api.SpaceBookAPI;
-import me.skymc.spacebook.inventory.SpaceBookDeleteHolder;
-import me.skymc.spacebook.utils.PlayerUtils;
 
 /**
  * TouchHandler

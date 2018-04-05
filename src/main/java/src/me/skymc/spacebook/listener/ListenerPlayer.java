@@ -1,7 +1,6 @@
 package me.skymc.spacebook.listener;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -46,12 +45,12 @@ public class ListenerPlayer implements Listener {
 		
 		// 检查附近是否有其他时空之书
 		if (SpaceBookAPI.isBookNear(e.getPlayer().getLocation())) {
-			SpaceBook.getLanguage().send(e.getPlayer(), "BOOK-NEAR");
+			SpaceBook.getLanguage().get("BOOK-NEAR").send(e.getPlayer());
 			return;
 		}
 		
 		// 创建背包
-		Inventory inventory = Bukkit.createInventory(new SpaceBookCreateHolder(), 9, SpaceBook.getLanguage().get("CREATE-TITLE"));
+		Inventory inventory = Bukkit.createInventory(new SpaceBookCreateHolder(), 9, SpaceBook.getLanguage().get("CREATE-TITLE").asString());
 		// 确认按钮
 		inventory.setItem(4, ItemUtils.loadItem(SpaceBook.getInst().getConfig(), "Settings.createitem", null));
 		// 打开背包

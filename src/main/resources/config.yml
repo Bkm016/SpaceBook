@@ -28,13 +28,6 @@ Settings:
   # 在这个范围内不允许出现两本时空之书
   effectiveredius: 25
   
-  # 创建设置
-  createsection:
-    # 标题持续时间（单位：秒）
-    titlestay: 10
-    # 音效
-    sound: 'ENTITY_ENDERDRAGON_DEATH-1-1'
-  
   # 时空之书的全息展示信息
   hologram:
     icon: 'BOOK_AND_QUILL'

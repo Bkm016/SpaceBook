@@ -1,11 +1,7 @@
 package me.skymc.spacebook.inventory;
 
-import java.util.HashMap;
-
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-
-import lombok.Getter;
 
 /**
  * InventoryHolder
